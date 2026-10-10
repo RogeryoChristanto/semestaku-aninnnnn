@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Semestaku, Aninnn 💫</title>
+    <!-- Font Sinematik dan Elegan -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* --- SETUP DASAR & VARIABEL WARNA (COSMIC THEME) --- */
+        :root {
+            --space-dark: #070913;
+            --space-light: #161b33;
+            --starlight: #f3e8ee;
+            --gold-accent: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.5);
+            --nebula-purple: rgba(123, 44, 191, 0.2);
+            --glass-bg: rgba(22, 27, 51, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--space-dark); 
+            color: var(--starlight); 
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top right, var(--space-light) 0%, var(--space-dark) 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--space-dark); }
+        ::-webkit-scrollbar-thumb { background: #3a405a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-accent); }
+
+        /* --- BACKGROUND STARS & NEBULA --- */
+        #star-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+        .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.8); animation: twinkle infinite alternate; }
+        .shooting-star {
+            position: absolute; width: 100px; height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,1), transparent);
+            animation: shooting 4s linear infinite; opacity: 0; transform: rotate(-45deg);
+        }
+        .nebula-glow {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80vw; height: 80vh; background: radial-gradient(circle, var(--nebula-purple) 0%, transparent 60%);
+            filter: blur(60px); z-index: -1; pointer-events: none; animation: pulse 8s infinite alternate;
+        }
+
+        /* --- MUSIC CONTROL --- */
+        .music-control {
+            position: fixed; top: 25px; right: 25px; z-index: 999;
+            background: rgba(10, 12, 24, 0.7); backdrop-filter: blur(10px);
+            padding: 12px 20px; border-radius: 50px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); cursor: pointer;
+            font-size: 0.9rem; font-weight: 600; color: var(--gold-accent);
+            border: 1px solid rgba(212, 175, 55, 0.3); transition: all 0.4s ease;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .music-control:hover { transform: scale(1.05); background: rgba(212, 175, 55, 0.1); border-color: var(--gold-accent); }
+        .music-icon { animation: spin 4s linear infinite; display: inline-block; }
+        .music-control.paused .music-icon { animation-play-state: paused; }
+
+        /* --- SECTION UMUM --- */
+        section {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 60px 20px; text-align: center; position: relative; z-index: 1;
+        }
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- SECTION 1: INTRO --- */
+        h1.title { font-family: 'Great Vibes', cursive; font-size: 6rem; color: var(--gold-accent); margin-bottom: 10px; text-shadow: 0 0 20px var(--gold-glow); font-weight: normal; }
+        .subtitle { font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 4px; color: #a0a5c0; margin-bottom: 40px; text-transform: uppercase; }
+        
+        /* Cosmic Timer */
+        .timer-wrapper {
+            background: var(--glass-bg); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 35px 50px; border-radius: 15px; box-shadow: 0 0 40px rgba(0,0,0,0.5); position: relative; overflow: hidden;
+        }
+        .timer-title { font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 5px; color: var(--gold-accent); margin-bottom: 25px; font-weight: 700; }
+        .countdown-container { display: flex; gap: 20px; justify-content: center; }
+        .time-box { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+        .time-box span { font-size: 3rem; font-weight: 300; font-family: 'Cinzel', serif; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.4); line-height: 1; }
+        .time-box small { font-size: 0.75rem; color: #7a82a6; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
+        .scroll-indicator { margin-top: 60px; font-size: 0.9rem; color: #5c6382; letter-spacing: 3px; font-family: 'Cinzel'; text-transform: uppercase; animation: floatUp 2s infinite; }
+
+        /* --- SECTION 2: GALERI BINTANG --- */
+        #gallery { padding-bottom: 100px; }
+        .gallery-title { font-family: 'Cinzel', serif; font-size: 3rem; color: #fff; letter-spacing: 3px; margin-bottom: 15px; text-transform: uppercase; }
+        .gallery-subtitle { color: #8892b0; font-weight: 300; font-size: 1.1rem; letter-spacing: 1px; max-width: 600px; margin: 0 auto 50px auto; }
+        .photo-grid { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; perspective: 1000px; }
+        
+        /* Floating Glass Cards */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            padding: 20px; border-radius: 20px; width: 300px; position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); transition: all 0.5s ease;
+        }
+        .glass-card img { width: 100%; height: 320px; object-fit: cover; border-radius: 12px; filter: grayscale(20%) contrast(110%); transition: all 0.5s ease; }
+        .glass-card-text { margin-top: 20px; font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--gold-accent); font-weight: 700; letter-spacing: 1px; }
+        .glass-card:nth-child(1) { animation: levitate 6s infinite alternate ease-in-out; }
+        .glass-card:nth-child(2) { animation: levitate 7s infinite alternate-reverse ease-in-out; }
+        .glass-card:hover { transform: translateY(-10px) scale(1.05); border-color: var(--gold-accent); box-shadow: 0 0 30px var(--gold-glow); z-index: 10; animation-play-state: paused; }
+        .glass-card:hover img { filter: grayscale(0%) contrast(110%); }
+
+        /* Marquee Cosmic */
+        .marquee-container {
+            background: rgba(0, 0, 0, 0.5); border-top: 1px solid rgba(212,175,55,0.3); border-bottom: 1px solid rgba(212,175,55,0.3);
+            color: var(--gold-accent); padding: 20px 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 20; backdrop-filter: blur(5px);
+        }
+        .marquee-text { display: inline-block; font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 4px; animation: marquee 30s linear infinite; text-transform: uppercase; }
+
+        /* --- SECTION 3: PUISI SEMESTA --- */
+        .poetry-card {
+            background: radial-gradient(circle at center, rgba(30, 35, 60, 0.6) 0%, rgba(10, 12, 24, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05); padding: 60px; border-radius: 2px; max-width: 800px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6); position: relative; overflow: hidden;
+        }
+        /* Corner Accents */
+        .poetry-card::before, .poetry-card::after { content: ''; position: absolute; width: 30px; height: 30px; border: 1px solid var(--gold-accent); }
+        .poetry-card::before { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .poetry-card::after { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+        .poem-text { font-family: 'Montserrat', sans-serif; font-weight: 300; line-height: 2.2; color: #c8cedf; font-size: 1.15rem; margin-bottom: 30px; text-align: justify; }
+        .poem-line { opacity: 0; transform: translateY(20px); transition: all 1s ease; }
+        .reveal.active .poem-line { opacity: 1; transform: translateY(0); }
+        .reveal.active .poem-line:nth-child(1) { transition-delay: 0.3s; }
+        .reveal.active .poem-line:nth-child(2) { transition-delay: 1.2s; } 
+        .reveal.active .poem-line:nth-child(3) { transition-delay: 2.1s; }
+
+        .wow-highlight { color: #fff; font-weight: 600; text-shadow: 0 0 10px rgba(255,255,255,0.5); font-style: italic; }
+
+        /* --- SECTION 4: MIMPI / BINTANG JATUH --- */
+        .dream-card { text-align: center; max-width: 750px; z-index: 2; }
+        .dream-title { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #fff; margin-bottom: 30px; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
+        .dream-text { font-size: 1.1rem; line-height: 1.9; color: #a3abc0; margin-bottom: 25px; font-weight: 300; }
+        .dream-text b { color: var(--gold-accent); font-weight: 600; font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 1px; }
+
+        /* --- SECTION 5: FINALE --- */
+        #finale { justify-content: center; min-height: 90vh; }
+        .final-quote { font-family: 'Cinzel', serif; font-size: 1.4rem; margin-bottom: 50px; line-height: 1.8; max-width: 800px; color: #fff; opacity: 0; letter-spacing: 2px; transition: all 2s ease; }
+        .reveal.active .final-quote { opacity: 1; transform: scale(1.02); transition-delay: 0.5s; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .finale-title { font-family: 'Great Vibes'; font-size: 6.5rem; color: var(--gold-accent); margin-bottom: 40px; text-shadow: 0 0 30px var(--gold-glow); }
+        
+        .btn-love {
+            background: transparent; border: 1px solid var(--gold-accent); padding: 15px 45px;
+            color: var(--gold-accent); font-size: 1.1rem; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 3px;
+            cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden; text-transform: uppercase;
+        }
+        .btn-love::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gold-glow); transition: 0.5s; z-index: -1; }
+        .btn-love:hover::before { left: 0; }
+        .btn-love:hover { color: #fff; box-shadow: 0 0 20px var(--gold-glow); border-color: #fff; transform: translateY(-3px); }
+
+        /* --- KEYFRAMES --- */
+        @keyframes floatTitle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes levitate { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes pulse { 0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } }
+        @keyframes floatUp { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-10px); opacity: 1; } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1.2); } }
+        @keyframes shooting { 
+            0% { transform: translateX(100vw) translateY(-20vh) rotate(-45deg); opacity: 1; } 
+            10% { opacity: 0; }
+            100% { transform: translateX(-20vw) translateY(100vh) rotate(-45deg); opacity: 0; } 
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            h1.title { font-size: 4.5rem; }
+            .subtitle { font-size: 0.9rem; letter-spacing: 2px; }
+            .timer-wrapper { padding: 25px 20px; width: 90%; }
+            .countdown-container { gap: 10px; }
+            .time-box span { font-size: 2rem; }
+            .time-box small { font-size: 0.6rem; }
+            .gallery-title { font-size: 2.2rem; }
+            .glass-card { width: 260px; padding: 15px; }
+            .glass-card img { height: 280px; }
+            .poetry-card { padding: 30px 20px; width: 92%; }
+            .poem-text { font-size: 1rem; text-align: left; }
+            .dream-title { font-size: 3.5rem; }
+            .finale-title { font-size: 4.5rem; }
+            .final-quote { font-size: 1rem; }
+            .marquee-text { font-size: 0.9rem; letter-spacing: 2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Latar Belakang Animasi -->
+    <div class="nebula-glow"></div>
+    <div id="star-container"></div>
+
+    <!-- Kontrol Musik -->
+    <div class="music-control paused" id="music-btn" onclick="toggleMusic()">
+        <span class="music-icon">🎵</span> <span id="music-text">Play Song</span>
+    </div>
+    <audio id="bgm" loop>
+        <source src="lagu.mp3" type="audio/mp3">
+    </audio>
+
+    <section id="home">
+        <div class="reveal">
+            <h1 class="title">Aninnn Sayangku</h1>
+            <p class="subtitle">Seluruh Semestaku Bermuara Padamu</p>
+            
+            <div class="timer-wrapper">
+                <div class="timer-title">KITA TELAH MENGARUNGI WAKTU SELAMA</div>
+                <div class="countdown-container" id="timer">
+                    <!-- Timer di-generate oleh JavaScript -->
+                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                Scroll untuk menjelajah<br>↓
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="reveal">
+            <h2 class="gallery-title">Rasi Bintang Terindah</h2>
+            <p class="gallery-subtitle">Aksaraku menjadi saksi, betapa indahnya atmamu yang bersinar di tengah gelapnya duniaku.</p>
+        </div>
+        <div class="photo-grid reveal">
+            <div class="glass-card">
+                <img src="senyum.jpeg" alt="Senyum Aninnn" onerror="this.src='https://via.placeholder.com/300x320/161b33/d4af37?text=Senyum+Terindah'">
+                <div class="glass-card-text">Senyum Terindah ✨</div>
+            </div>
+            <div class="glass-card">
+                <img src="favorite.jpeg" alt="Aninnn Cantik" onerror="this.src='https://via.placeholder.com/300x320/161b33/d4af37?text=Perempuanku'">
+                <div class="glass-card-text">Satu-Satunya 💫</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee-container">
+        <div class="marquee-text">
+            IN EVERY UNIVERSE, I WILL ALWAYS CHOOSE YOU 💫 MY SUN, MY MOON, AND ALL MY STARS 💫 I LOVE YOU MORE THAN THERE ARE STARS IN THE SKY 💫 
+            IN EVERY UNIVERSE, I WILL ALWAYS CHOOSE YOU 💫 MY SUN, MY MOON, AND ALL MY STARS 💫 I LOVE YOU MORE THAN THERE ARE STARS IN THE SKY 💫
+        </div>
+    </div>
+
+    <section id="poetry">
+        <div class="poetry-card reveal">
+            <p class="poem-text poem-line">
+                "Di antara miliaran benda langit di semesta, <span class="wow-highlight">hanya nama ANINNN</span> yang menjadi poros rotasiku. Sebab, senyummu adalah gravitasi terkuat yang mengikat hatiku agar tak pernah pergi."
+            </p>
+            <p class="poem-text poem-line">
+                "Di antara semua tempat di luasnya dunia, <span class="wow-highlight">hanya kepadamu</span> aku ingin berpulang. Aku ingin menetap di antara hangat pelukmu, bermukim selamanya tanpa perlu mencari arah yang lain."
+            </p>
+            <p class="poem-text poem-line">
+                "Jika waktu adalah garis lurus, maka bersamamu kuharap <span class="wow-highlight">jam tak lagi berdetik</span>. Agar dalam ruang hampa itu, aku bisa menikmati setiap detik eksistensimu selamanya."
+            </p>
+        </div>
+    </section>
+
+    <section id="dream">
+        <div class="dream-card reveal">
+            <h2 class="dream-title">Dimensi Tak Terbatas</h2>
+            <p class="dream-text">
+                Statistik mengatakan, manusia menghabiskan sepertiga hidupnya untuk tidur. Dalam fase itu, kesadaran perlahan meredup, dimensi dunia nyata larut, dan pikiran mulai melukiskan hal yang paling ia damba.
+            </p>
+            <p class="dream-text">
+                Mungkin, itu adalah cara Tuhan memberi ruang. <b>Karena diriku tak cukup kuat menanggung keindahanmu jika hanya dipandang saat terjaga.</b>
+            </p>
+            <p class="dream-text">
+                Di ambang batas antara sadar dan lelap, saat cahaya di mataku perlahan padam, bayangmu selalu datang mengetuk—tersenyum paling manis, seolah kau memang diciptakan untuk menguasai mimpiku juga.
+            </p>
+        </div>
+    </section>
+
+    <section id="finale">
+        <div class="reveal">
+            <p class="final-quote">
+                "Mereka tidak akan pernah tahu, setiap kali kutatap sorot mata teduh itu, aku kembali jatuh cinta padamu. Lagi, lagi, dan tak akan pernah berhenti."
+            </p>
+            <h1 class="finale-title">I Love You, Aninnn</h1>
+            <button class="btn-love" onclick="starburst()">
+                To Infinity and Beyond 🚀
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // --- KONFIGURASI TIMER ---
+        // 31 Agustus 2026 (Bulan di JS dimulai dari 0, jadi 7 adalah Agustus)
+        const startDate = new Date(2026, 7, 31); 
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            
+            if (diff < 0) {
+                document.getElementById("timer").innerHTML = `<div class="time-box" style="width: 100%;"><span>Menanti Waktu...</span></div>`;
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            
+            document.getElementById("timer").innerHTML = `
+                <div class="time-box"><span>${days}</span><small>Hari</small></div>
+                <div class="time-box"><span>${hours}</span><small>Jam</small></div>
+                <div class="time-box"><span>${minutes}</span><small>Menit</small></div>
+                <div class="time-box"><span>${seconds}</span><small>Detik</small></div>
+            `;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // --- BACKGROUND STARS GENERATOR ---
+        const starContainer = document.getElementById('star-container');
+        
+        // Buat Bintang Berkedip (Twinkling Stars)
+        function createStars() {
+            for(let i=0; i<150; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                // Ukuran random
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                // Posisi random
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                // Animasi random
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                star.style.animationDelay = (Math.random() * 2) + 's';
+                
+                // Tambahkan sedikit variasi warna (putih/kebiruan/kuning pucat)
+                const colors = ['#ffffff', '#e2e8f0', '#fef08a'];
+                star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                starContainer.appendChild(star);
+            }
+        }
+
+        // Buat Bintang Jatuh Periodik
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.classList.add('shooting-star');
+            shootingStar.style.left = (Math.random() * 100) + 'vw';
+            shootingStar.style.top = (Math.random() * 50) + 'vh';
+            starContainer.appendChild(shootingStar);
+            
+            setTimeout(() => { shootingStar.remove(); }, 4000);
+        }
+        
+        createStars();
+        setInterval(createShootingStar, 3000); // Tiap 3 detik muncul bintang jatuh
+
+        // --- INTERSECTION OBSERVER (Animasi Scroll) ---
+        const observerOptions = { root: null, threshold: 0.15, rootMargin: "0px" };
+        const observer = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- MUSIC CONTROLLER ---
+        const bgm = document.getElementById('bgm');
+        const musicBtn = document.getElementById('music-btn');
+        const musicText = document.getElementById('music-text');
+        
+        function toggleMusic() {
+            if (bgm.paused) {
+                bgm.play();
+                musicBtn.classList.remove('paused');
+                musicText.innerText = "Pause Music";
+            } else {
+                bgm.pause();
+                musicBtn.classList.add('paused');
+                musicText.innerText = "Play Music";
+            }
+        }
+
+        // --- EFEK KLIK FINALE (STARBURST) ---
+        function starburst() {
+            alert("Terima kasih sudah menjadi satu-satunya semestaku, Aninnn 💫");
+            // Membuat hujan bintang jatuh secara bersamaan
+            for(let i = 0; i < 30; i++) {
+                setTimeout(createShootingStar, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
